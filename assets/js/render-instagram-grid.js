@@ -1,3 +1,12 @@
+const code_to_display = [
+  "CQ5vFj0plFt",
+  "CLSG9FXpa_Q",
+  "CNFvs4MpG5O",
+  "CLxiZZ7pjIx",
+  "CLkYn8xJc94",
+  "CRSboiRJxwp"
+];
+
 String.prototype.formatUnicorn = String.prototype.formatUnicorn ||
 function () {
     "use strict";
@@ -17,7 +26,20 @@ function () {
     return str;
 };
 
-var insta_template = `
+const row_template = `
+<div class="row">
+  <div class="col">
+    {0}
+  </div>
+  <div class="col">
+    {1}
+  </div>
+  <div class="col">
+    {2}
+  </div>
+</div>`;
+
+const insta_template = `
 <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/{0}/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="13" style=" background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);">
   <div style="padding:16px;"> 
     <a href="https://www.instagram.com/p/{0}/?utm_source=ig_embed&amp;utm_campaign=loading" style=" background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;" target="_blank"> 
@@ -106,7 +128,28 @@ var insta_template = `
       </a>
     </p>
   </div>
-</blockquote> 
+</blockquote>`;
 
-<script async src="//www.instagram.com/embed.js">
-</script>`;
+let html_content = "";
+let counter = 0;
+let row_content = ["", "", ""];
+for (const image_code of code_to_display) {
+  if (counter === 3) {
+    // do push
+    let next_row = row_template.formatUnicorn(row_content[0], row_content[1], row_content[2]);
+    html_content = html_content.concat(next_row);
+
+    // reset
+    row_content = ["", "", ""];
+    counter = 0;
+  }
+
+  row_content[counter] = insta_template.formatUnicorn(image_code, "");
+  counter += 1;
+}
+
+// push buffer
+let next_row = row_template.formatUnicorn(row_content[0], row_content[1], row_content[2]);
+html_content = html_content.concat(next_row);
+
+document.getElementById('recent-member-work').innerHTML = html_content;
