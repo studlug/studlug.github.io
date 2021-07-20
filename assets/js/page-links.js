@@ -23,7 +23,7 @@ function pageLinkFill(current_page) {
     var gallery = "";
     var featured = "";
     var all_mocs = "";
-    var collabs = "";
+    var collabs = "disabled";
     var apply = "";
 
     if (current_page === "index.html") {
