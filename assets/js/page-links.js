@@ -45,7 +45,7 @@ function pageLinkFill(current_page) {
             
             <!--USE FOR ACTIVE TAB-->
             <li class="nav-item">
-            <a class="nav-link {0}" aria-current="page" href="index.html">Home</a>
+            <a class="nav-link {0}" aria-current="page" href=".">Home</a>
             </li>
 
             <!--USE FOR INACTIVE TAB-->
